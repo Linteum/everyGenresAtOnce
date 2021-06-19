@@ -1,7 +1,7 @@
 const { DomHandler } = require("domhandler");
-const { insertAllAsync } = require("../scrap");
+const { insertAllAsync } = require("../../controller/databases.js");
 
-function eNoiseParse(dom) {
+function genresParser(dom) {
   const body = dom[0].children.find((o) => o.name == "body");
   const canvas = body.children.find(
     (o) => o.name == "div" && o.attribs && o.attribs.class == "canvas"
@@ -9,7 +9,7 @@ function eNoiseParse(dom) {
   const tab = canvas.children
     .filter((o) => o.children)
     .map((o) => {
-      return { genre: o.children[0].data };
+      return { genre: o.children[0].data, origin: "everyNoiseAtOnce" };
     });
   return tab;
 }
@@ -17,8 +17,8 @@ function eNoiseParse(dom) {
 const handler = new DomHandler(async (err, dom) => {
   if (err) return err;
 
-  const genres = eNoiseParse(dom);
-  await insertAllAsync(genres);
+  const genres = genresParser(dom);
+  await insertAllAsync("genres", genres);
   // this is my default function you
   // can replace it with whatever you want
 });

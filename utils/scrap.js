@@ -1,8 +1,6 @@
 const fetch = require("node-fetch");
 const { Parser } = require("htmlparser2");
 
-const addItem = require("../controller/genres");
-
 async function fetchPageFrom(uri) {
   try {
     const res = await fetch(uri);
@@ -12,16 +10,6 @@ async function fetchPageFrom(uri) {
   } catch (e) {
     console.error(e);
   }
-}
-
-// format html page stringform to object array of music genres
-
-async function insertAllAsync(items) {
-  await Promise.all(
-    items.map((o) => {
-      addItem(o);
-    })
-  );
 }
 
 // convert string dom to json
@@ -35,5 +23,4 @@ async function write(handler, url) {
 
 module.exports = {
   write,
-  insertAllAsync,
 };

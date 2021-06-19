@@ -1,5 +1,5 @@
 const eNoise = require("./utils/handlers/eNoise")
-const bandcamp = require('./utils/handlers/bancamp');
+const bandcamp = require('./utils/handlers/bandcamp');
 const scrap = require("./utils/scrap");
 
 const uris = {
@@ -7,7 +7,7 @@ const uris = {
   bandcamp:"https://bandcamp.com/tags"
 }
 const main = async () => {
-  // scrap.write(eNoise.handler, uris.eNoise)
+  scrap.write(eNoise.handler, uris.eNoise)
   
   scrap.write(bandcamp.handler, uris.bandcamp)
 };
