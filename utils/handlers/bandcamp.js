@@ -62,8 +62,7 @@ function placesParser(dom) {
     .children.filter((o) => o.name == "a");
 
   const tab = wrapper.map((o) => {
-    if (o.children[0])
-      return { place: o.children[0].data, origin: "bandcamp" };
+    if (o.children[0]) return { place: o.children[0].data, origin: "bandcamp" };
   });
 
   console.log(tab);
