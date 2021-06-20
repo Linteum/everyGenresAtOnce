@@ -9,8 +9,7 @@
     "scrap": "node ./index.js"
   },
   "dependencies": {
-    "domhandler": "^4.2.0",
-    "htmlparser2": "^6.1.0",
+    "jsdom": "^16.6.0",
     "nedb": "^1.8.0",
     "node-fetch": "^2.6.1"
   }

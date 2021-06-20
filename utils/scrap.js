@@ -1,12 +1,14 @@
 const fetch = require("node-fetch");
-const { Parser } = require("htmlparser2");
+const { JSDOM } = require("jsdom");
 
 async function fetchPageFrom(uri) {
   try {
     const res = await fetch(uri);
-    if (res.ok) return await res.text();
+    if (!res.ok) return console.error();
 
-    return console.error();
+    const data = await res.text();
+    const dom = new JSDOM(data);
+    return dom.window;
   } catch (e) {
     console.error(e);
   }
@@ -14,13 +16,9 @@ async function fetchPageFrom(uri) {
 
 // convert string dom to json
 
-async function write(handler, url) {
-  const parser = new Parser(handler);
-  const data = await fetchPageFrom(url);
-  parser.write(data);
-  parser.end();
-}
+module.exports = async (website) => {
 
-module.exports = {
-  write,
+  const window = await fetchPageFrom(website.uri);
+  await website.handler(window)
+
 };
