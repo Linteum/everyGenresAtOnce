@@ -1,16 +1,16 @@
 const path = require("path");
 const Datastore = require("nedb");
 
-const dbPath = './databases/'
+const dbPath = "./databases/";
 
 const db = {};
 db.genres = new Datastore({
-  filename: path.resolve(path.join(dbPath,"./genres.db")),
+  filename: path.resolve(path.join(dbPath, "./genres.db")),
   autoload: true,
 });
 
 db.places = new Datastore({
-  filename: path.resolve(path.join(dbPath,"./places.db")),
+  filename: path.resolve(path.join(dbPath, "./places.db")),
   autoload: true,
 });
 
@@ -30,14 +30,7 @@ const cb = (err, newDoc) => {
 // console.log(db)
 // POST add subjects from /api/subjects
 async function addItem(table, obj) {
-  switch (table) {
-    case "genres":
-      db.genres.insert(obj, cb);
-      break;
-    case "places":
-      db.places.insert(obj, cb);
-      break;
-  }
+  db[table].insert(obj, cb);
 }
 
 async function insertAllAsync(table, items) {
@@ -48,6 +41,30 @@ async function insertAllAsync(table, items) {
   );
 }
 
+const getItems = async (tableName, searchString) => {
+  return new Promise((resolve, reject) => {
+    const regex = new RegExp(searchString.trim());
+    console.log(regex);
+    switch (tableName) {
+      case "genres":
+        db.genres.find({ genre: regex }, (err, docs) => {
+          if (err) return reject(err);
+          return resolve(docs);
+        });
+        break;
+
+      case "places":
+        db.places.find({ place: regex }, (err, docs) => {
+          if (err) return reject(err);
+          console.log(docs)
+          return resolve(docs);
+        });
+        break;
+    }
+  });
+};
+
 module.exports = {
   insertAllAsync,
+  getItems,
 };

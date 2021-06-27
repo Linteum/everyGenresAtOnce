@@ -6,11 +6,19 @@
   "author": "optomat <OptomatJs@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "scrap": "node ./index.js"
+    "scrap": "node ./index.js",
+    "dev": "nodemon ./source/server.js --production=false",
+    "start": "node ./source/server.js"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.18.0",
+    "fastify-cors": "^6.0.1",
     "jsdom": "^16.6.0",
     "nedb": "^1.8.0",
     "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
