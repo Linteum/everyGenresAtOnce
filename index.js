@@ -6,7 +6,6 @@ const main = async () => {
   scrap(eNoise)
   scrap(discogs)
   scrap(bandcamp)
-
 };
 
 main();

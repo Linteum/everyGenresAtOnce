@@ -12,20 +12,9 @@ const server = () => {
 
   // register
 
+  
   fastify.register(require("./router"));
 
-  fastify.register(
-    require("fastify-cors"),
-    (instance) => (req, callback) => {
-        let options 
-        cosnt 
-        if (pageUrlreg.test("http://127.0.0.1:3000/")) {
-            options = {origin : true}
-        }
-
-        callback(null, options)
-    }
-  );
   fastify.setNotFoundHandler((req, rep) => {
     rep.send({ error: 404 });
   });
